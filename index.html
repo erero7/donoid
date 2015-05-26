@@ -1,0 +1,99 @@
+<html>
+<html>
+<head>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="cloud.js"></script>
+</head>
+<body>
+    <script>
+      // Declare inputs and initiate wordcloud draw.    
+      (function(){
+          var text = "SCENE II. Paris. The KING's palace.\n\nFlourish of cornets. Enter the KING of France, with letters, and divers Attendants\nKING\nThe Florentines and Senoys are by the ears;\nHave fought with equal fortune and continue\nA braving war.\nFirst Lord\nSo 'tis reported, sir.\nKING\nNay, 'tis most credible; we here received it\nA certainty, vouch'd from our cousin Austria,\nWith caution that the Florentine will move us\nFor speedy aid; wherein our dearest friend\nPrejudicates the business and would seem\nTo have us make denial.\nFirst Lord\nHis love and wisdom,\nApproved so to your majesty, may plead\nFor amplest credence.\nKING\nHe hath arm'd our answer,\nAnd Florence is denied before he comes:\nYet, for our gentlemen that mean to see\nThe Tuscan service, freely have they leave\nTo stand on either part.\nSecond Lord\nIt well may serve\nA nursery to our gentry, who are sick\nFor breathing and exploit.\nKING\nWhat's he comes here?\nEnter BERTRAM, LAFEU, and PAROLLES\n\nFirst Lord\nIt is the Count Rousillon, my good lord,\nYoung Bertram.\nKING\nYouth, thou bear'st thy father's face;\nFrank nature, rather curious than in haste,\nHath well composed thee. Thy father's moral parts\nMayst thou inherit too! Welcome to Paris.\nBERTRAM\nMy thanks and duty are your majesty's.\nKING\nI would I had that corporal soundness now,\nAs when thy father and myself in friendship\nFirst tried our soldiership! He did look far\nInto the service of the time and was\nDiscipled of the bravest: he lasted long;\nBut on us both did haggish age steal on\nAnd wore us out of act. It much repairs me\nTo talk of your good father. In his youth\nHe had the wit which I can well observe\nTo-day in our young lords; but they may jest\nTill their own scorn return to them unnoted\nEre they can hide their levity in honour;\nSo like a courtier, contempt nor bitterness\nWere in his pride or sharpness; if they were,\nHis equal had awaked them, and his honour,\nClock to itself, knew the true minute when\nException bid him speak, and at this time\nHis tongue obey'd his hand: who were below him\nHe used as creatures of another place\nAnd bow'd his eminent top to their low ranks,\nMaking them proud of his humility,\nIn their poor praise he humbled. Such a man\nMight be a copy to these younger times;\nWhich, follow'd well, would demonstrate them now\nBut goers backward.\nBERTRAM\nHis good remembrance, sir,\nLies richer in your thoughts than on his tomb;\nSo in approof lives not his epitaph\nAs in your royal speech.\nKING\nWould I were with him! He would always say--\nMethinks I hear him now; his plausive words\nHe scatter'd not in ears, but grafted them,\nTo grow there and to bear,--'Let me not live,'--\nThis his good melancholy oft began,\nOn the catastrophe and heel of pastime,\nWhen it was out,--'Let me not live,' quoth he,\n'After my flame lacks oil, to be the snuff\nOf younger spirits, whose apprehensive senses\nAll but new things disdain; whose judgments are\nMere fathers of their garments; whose constancies\nExpire before their fashions.' This he wish'd;\nI after him do after him wish too,\nSince I nor wax nor honey can bring home,\nI quickly were dissolved from my hive,\nTo give some labourers room.\nSecond Lord\nYou are loved, sir:\nThey that least lend it you shall lack you first.\nKING\nI fill a place, I know't. How long is't, count,\nSince the physician at your father's died?\nHe was much famed.\nBERTRAM\nSome six months since, my lord.\nKING\nIf he were living, I would try him yet.\nLend me an arm; the rest have worn me out\nWith several applications; nature and sickness\nDebate it at their leisure. Welcome, count;\nMy son's no dearer.\nBERTRAM\nThank your majesty.\nExeunt. Flourish",
+              width = 500,
+              height = 300,
+              rotate_words = true,
+              unique_word_counts = {};
+    
+          var wordmap = processText(text);
+    
+          var svg = d3.select('body').html('').append('svg');
+    
+          drawCloud(wordmap, width, height, svg, rotate_words, returnSvg);
+        
+          // return svg
+          function returnSvg(body){
+              console.log("I am done");
+              console.log(body);
+          }
+      })();
+      
+      // Parse a body of text into sorted word counts.
+      function processText(text){
+          var unique_word_counts = {},
+              exclude_words = "i,me,my,myself,we,us,our,ours,ourselves,you,your,yours,yourself,yourselves,he,him,his,himself,she,her,hers,herself,it,its,itself,they,them,their,theirs,themselves,what,which,who,whom,whose,this,that,these,those,am,is,are,was,were,be,been,being,have,has,had,having,do,does,did,doing,will,would,should,can,could,ought,i'm,you're,he's,she's,it's,we're,they're,i've,you've,we've,they've,i'd,you'd,he'd,she'd,we'd,they'd,i'll,you'll,he'll,she'll,we'll,they'll,isn't,aren't,wasn't,weren't,hasn't,haven't,hadn't,doesn't,don't,didn't,won't,wouldn't,shan't,shouldn't,can't,cannot,couldn't,mustn't,let's,that's,who's,what's,here's,there's,when's,where's,why's,how's,a,an,the,and,but,if,or,because,as,until,while,of,at,by,for,with,about,against,between,into,through,during,before,after,above,below,to,from,up,upon,down,in,out,on,off,over,under,again,further,then,once,here,there,when,where,why,how,all,any,both,each,few,more,most,other,some,such,no,nor,not,only,own,same,so,than,too,very,say,says,said,poop,shall";
+    
+          var tokenized_text = text.split(/[ '\-\(\)\*":;\[\]|{},.!?]+/);
+          tokenized_text.forEach(function(raw_word){
+              var word = raw_word.toLowerCase();
+              if (word != "" && exclude_words.indexOf(word)==-1 && word.length>1){
+                  word in unique_word_counts ?
+                      unique_word_counts[word]++ :
+                      (unique_word_counts[word] = 1 + Math.random());
+              }
+          });
+    
+          var wordmap = d3.entries(unique_word_counts).sort(function(a,b){
+              return b.value - a.value;
+          });
+    
+          return wordmap;
+      }
+    
+      // draw our wordcloud.
+      function drawCloud(wordmap, width, height, svg, rotate_words, callback){
+          var cloud = d3.layout.cloud;
+          var max = Math.min(width / 5, height / 5, 100),
+              font_size = d3.scale.linear()
+                  .domain([ 1, d3.max( wordmap, function(d) { return d.value; })])
+                  .range([max / 10, max]),
+              fill = d3.scale.category20();
+          
+          // start cloud simulation to figure out where words should be placed.
+          cloud().size([width, height])
+              .words(wordmap)
+              .timeInterval(20)
+              .padding(2)
+              .spiral("rectangular")
+              .fontSize(function(d) { return font_size(d.value); })
+              .font("Impact")
+              .text(function(d) { return d.key; })
+              .rotate(function() {
+                  return rotate_words ? (~~(Math.random() * 2) * 90) : 0;
+              })
+              .on("end", function(words){
+                  // once simulation has found word placements, let's draw the words to an svg.
+                  cloud().stop();
+                  svg
+                      .attr("width", width)
+                      .attr("height", height)
+                  .append("g")
+                      .attr("transform", "translate(" + [width >> 1, height >> 1] + ")")
+                  .selectAll("text")
+                      .data(words)
+                  .enter().append("text")
+                      .style("font-family", "Impact")
+                      .style("font-size", function(d) { return font_size(d.value) + "px"; })
+                      .style("fill", function(d, i) { return fill(i); })
+                      .attr("text-anchor", "middle")
+                      .attr("transform", function(d) {
+                          return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                      })
+                      .text(function(d) { return d.key; });
+                  
+                  callback(d3.select('body'));
+              })
+              .start();
+          }
+    </script>
+</body>
+</html>
