@@ -1,3 +1,6 @@
+# donoid
+I LOVE YOU, YOU LOVE ME
+
 ## Setup
 Create file `config/development.json` and add the following:
     
