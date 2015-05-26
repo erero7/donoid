@@ -1,0 +1,22 @@
+{
+  "name": "donoid",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erero7/donoid.git"
+  },
+  "author": "erero7",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/erero7/donoid/issues"
+  },
+  "homepage": "https://github.com/erero7/donoid#readme",
+  "dependencies": {
+    "config": "^1.13.0"
+  }
+}

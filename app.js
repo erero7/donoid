@@ -1,8 +1,10 @@
-var PORT = 10552;
-var HOST = '23.228.235.96';
+'use strict';
 
-var dgram = require('dgram');
-var server = dgram.createSocket('udp4');
+var config = require('config'),
+    HOST = config.host,
+    PORT = config.port,
+    dgram = require('dgram'),
+    server = dgram.createSocket('udp4');
 
 server.on('listening', function () {
     var address = server.address();

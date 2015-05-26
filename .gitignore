@@ -1,0 +1,6 @@
+.idea
+node_modules
+donoid.iml
+.npmrc
+config/dev*.json
+config/prod*.json
