@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/erero7/donoid#readme",
   "dependencies": {
-    "config": "^1.13.0"
+    "config": "^1.13.0",
+    "ramda": "^0.14.0"
   }
 }
