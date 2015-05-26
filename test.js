@@ -18,7 +18,6 @@ var data = [{
   , mode:'lines'
   , stream: {
       token: token1
-    , maxpoints: 10
     }
   }
   ,{
@@ -26,11 +25,14 @@ var data = [{
   , y:[1, 2, 3, 4, 5]
   , type: 'scatter'
   , mode: 'lines'
-/*  , stream: {
-      token: token2
-    , maxpoints: 10
-    }*/
   }
+  ,{
+    x:[2, 2, 2, 2, 2]
+  , y:[1, 2, 3, 4, 5]
+  , type: 'scatter'
+  , mode: 'lines'
+  }
+  
 ]
 
 var query = {
