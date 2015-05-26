@@ -5,7 +5,8 @@ var config = require('config'),
     PORT = config.port,
     dgram = require('dgram'),
     parseData = require('./lib/parseData'),
-    server = dgram.createSocket('udp4');
+    server = dgram.createSocket('udp4'),
+    sendToPlotly = require('./lib/sendToPlotly');
 
 console.log(config);
 
@@ -15,7 +16,30 @@ server.on('listening', function () {
 });
 
 server.on('message', function (message, remote) {
-    console.log(parseData(message));
+    var data = parseData(message);
+    var formatedData = [{
+            x:[data.Timestamp],
+            y:[data.Accel_X],
+            type:'scatter',
+            mode:'lines',
+            stream: {
+                token: token1
+            }
+        },
+        {
+            x:[data.Timestamp],
+            y:[data.Accel_Y],
+            type: 'scatter',
+            mode: 'lines'
+        },
+        {
+            x:[data.Timestamp],
+            y:[data.Accel_Z],
+            type: 'scatter',
+            mode: 'lines'
+        }
+    ];
+    sendToPlotly(formatedData);
 });
 
 server.bind(PORT, HOST);
