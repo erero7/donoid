@@ -23,20 +23,26 @@ server.on('message', function (message, remote) {
             type:'scatter',
             mode:'lines',
             stream: {
-                token: token1
+                token: config.token
             }
         },
         {
             x:[data.Timestamp],
             y:[data.Accel_Y],
             type: 'scatter',
-            mode: 'lines'
+            mode: 'lines',
+            stream: {
+                token: config.token
+            }
         },
         {
             x:[data.Timestamp],
             y:[data.Accel_Z],
             type: 'scatter',
-            mode: 'lines'
+            mode: 'lines',
+            stream: {
+                token: config.token
+            }
         }
     ];
     sendToPlotly(formatedData);
