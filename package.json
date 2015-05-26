@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/erero7/donoid.git"
   },
-  "author": "erero7",
+  "author": ["erero7", "jemiloii"],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/erero7/donoid/issues"
