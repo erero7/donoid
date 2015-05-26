@@ -4,7 +4,10 @@ var config = require('config'),
     HOST = config.host,
     PORT = config.port,
     dgram = require('dgram'),
+    parseData = require('./lib/parseData'),
     server = dgram.createSocket('udp4');
+
+console.log(config);
 
 server.on('listening', function () {
     var address = server.address();
@@ -12,8 +15,8 @@ server.on('listening', function () {
 });
 
 server.on('message', function (message, remote) {
-    console.log(remote.address + ':' + remote.port +' - ' + message);
-
+    console.log(remote.address + ':' + remote.port);
+    console.log(parseData(message));
 });
 
 server.bind(PORT, HOST);
